@@ -1,4 +1,5 @@
 from paddleocr import PaddleOCR
+from structuring.json_builder import cleaned_text
 
 # 1. Initialize OCR
 ocr = PaddleOCR(
@@ -10,11 +11,9 @@ ocr = PaddleOCR(
 
 # 2. Process the image
 work = ocr.predict(
-    r"C:\Users\Victu\OneDrive\Desktop\python\projects\OCR-Document-Extractor\samples\boarding_pass.jpg"
+    r"C:\Users\Victu\OneDrive\Desktop\python\projects\OCR-Document-Extractor\samples\Screenshot.png"
 )
 
-# Initialize counter
-count = 0
 
 # 3. Process OCR results
 for page in work:
@@ -27,12 +26,7 @@ for page in work:
     texts = data["rec_texts"]
     scores = data["rec_scores"]
 
-    
+    clean_text, clean_score = cleaned_text(texts, scores)
 
-    for text, score in zip(texts, scores):
-
-        count = count + 1
-        print(count)
-        print(f"Text: {text}")
-        print(f"accuracy: {score:.2%}")
-        print("----------------")
+    for text in clean_text:
+        print(text)
