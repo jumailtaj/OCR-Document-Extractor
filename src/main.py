@@ -12,7 +12,4 @@ work = ocr.predict(
 )
 
 for page in work:
-    data = page.json
-
-    print(data["rec_polys"])
-    
+    print(page)
